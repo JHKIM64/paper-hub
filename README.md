@@ -6,7 +6,7 @@ with Python, Flask, HTML, JS, Postgresql, TimescaleDB
 
 <div align="center">
 <img src=examples/dashboard.png width="640" height="400"/> <br> <br>
-<div align="center">[bkms1 - **Sangwon Lee**] FFT</div>
+<div align="center">bkms1 - **Sangwon Lee**</div>
 </div>
 
 ## Instruction
