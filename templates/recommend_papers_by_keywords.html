@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Recommend Papers by Keywords{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <h1 class="text-center">Recommended Papers by Keywords</h1>
+        <div id="radial-chart"></div>
+        {% if result %}
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <script>
+            const data = {{ result|tojson }};
+
+            const width = 800;
+            const height = 800;
+            const radius = 250;
+            const svg = d3.select("#radial-chart")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+            const user = data[0].user_id;
+            const keywords = [...new Set(data.map(d => d.keyword))];
+            const papersByKeyword = d3.group(data, d => d.keyword);
+
+            const angle = d3.scalePoint()
+                .domain(keywords)
+                .range([0, 2 * Math.PI]);
+
+            const line = d3.lineRadial()
+                .angle(d => angle(d.keyword))
+                .radius(radius);
+
+            svg.append("circle")
+                .attr("r", radius)
+                .attr("fill", "none")
+                .attr("stroke", "#ccc");
+
+            const links = svg.append("g")
+                .selectAll("line")
+                .data(data)
+                .enter()
+                .append("line")
+                .attr("x1", 0)
+                .attr("y1", 0)
+                .attr("x2", d => radius * Math.cos(angle(d.keyword) - Math.PI / 2))
+                .attr("y2", d => radius * Math.sin(angle(d.keyword) - Math.PI / 2))
+                .attr("stroke", "#ccc");
+
+            const nodes = svg.append("g")
+                .selectAll("g")
+                .data(keywords)
+                .enter()
+                .append("g")
+                .attr("transform", d => `rotate(${angle(d) * 180 / Math.PI - 90}) translate(${radius},0)`);
+
+            nodes.append("circle")
+                .attr("r", 5)
+                .attr("fill", "#69b3a2");
+
+            nodes.append("text")
+                .attr("dy", ".31em")
+                .attr("x", 6)
+                .attr("text-anchor", d => angle(d) < Math.PI ? "start" : "end")
+                .attr("transform", d => angle(d) < Math.PI ? null : "rotate(180)")
+                .text(d => d);
+
+            svg.append("circle")
+                .attr("r", 10)
+                .attr("fill", "black");
+
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("dy", ".31em")
+                .text(user);
+
+            papersByKeyword.forEach((papers, keyword) => {
+                const angleOffset = angle(keyword) - Math.PI / 2;
+                const paperNodes = svg.append("g")
+                    .attr("transform", `rotate(${angleOffset * 180 / Math.PI}) translate(${radius + 20},0)`);
+
+                paperNodes.selectAll("text")
+                    .data(papers)
+                    .enter()
+                    .append("text")
+                    .attr("dy", (d, i) => `${i * 1.2}em`)
+                    .attr("text-anchor", angleOffset < Math.PI ? "start" : "end")
+                    .attr("transform", angleOffset < Math.PI ? null : "rotate(180)")
+                    .text(d => d.title)
+                    .style("font-size", "12px")
+                    .style("fill", "#333");
+            });
+        </script>
+        {% else %}
+        <p class="text-center">No recommendations available.</p>
+        {% endif %}
+        <p class="text-center mt-3"><a href="/dashboard" class="btn btn-primary">Back to Dashboard</a></p>
+    </div>
+</div>
+{% endblock %}

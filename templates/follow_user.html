@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Follow User{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="text-center">Follow a User</h1>
+        <form method="post" action="/follow_user">
+            <div class="form-group">
+                <label for="follower_id">Follower ID:</label>
+                <input type="text" class="form-control" id="follower_id" name="follower_id" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Follow</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

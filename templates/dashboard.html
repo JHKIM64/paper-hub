@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1 class="text-center">Welcome, {{ username }}!</h1>
+<div class="row">
+    <!-- User Interaction Section -->
+    <div class="col-md-12">
+        <h3 class="text-center">User Interaction</h3>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('add_paper').submit();">Add a Paper</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('follow_user').submit();">Follow a User</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('unfollow_user').submit();">Unfollow a User</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('get_follower').submit();">View Followers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Symbolic Search Section -->
+    <div class="col-md-12">
+        <h3 class="text-center">Symbolic</h3>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('search_by_author').submit();">Search by Author</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('high_citation').submit();">View High Citation Papers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('statistic_by_year').submit();">Get Statistics by Year</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vector Search Section -->
+    <div class="col-md-12">
+        <h3 class="text-center">Hybrid & Semantic</h3>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('find_relevant_papers').submit();">Get Relevant Papers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="#" class="stretched-link" onclick="event.preventDefault(); document.getElementById('recommend_papers_by_keywords').submit();">Recommend Papers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Forms for actions -->
+<form id="search_by_author" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="search_by_author">
+</form>
+<form id="high_citation" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="high_citation">
+</form>
+<form id="statistic_by_year" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="statistic_by_year">
+</form>
+<form id="add_paper" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="add_paper">
+</form>
+<form id="follow_user" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="follow_user">
+</form>
+<form id="unfollow_user" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="unfollow_user">
+</form>
+<form id="get_follower" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="get_follower">
+</form>
+<form id="get_followed_authors_papers_by_year" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="get_followed_authors_papers_by_year">
+</form>
+<form id="find_relevant_papers" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="find_relevant_papers">
+</form>
+<form id="recommend_papers_by_keywords" method="post" action="/dashboard">
+    <input type="hidden" name="action" value="recommend_papers_by_keywords">
+</form>
+
+<p class="text-center mt-3"><a href="/logout" class="btn btn-danger btn-block">Logout</a></p>
+{% endblock %}
