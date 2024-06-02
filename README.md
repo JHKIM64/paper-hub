@@ -17,8 +17,8 @@ PaperHub project is a paper-sharing site using vector db. Using the Hugging Face
 
 ## Natural language Question
 <div align="center">
-<img src=examples/find paper with nl question.png width="640" height="400"/> <br> <br>
+<img src='examples/find paper with nl question.png' width="640" height="400"/> <br> <br>
 </div>
 <div align="center">
-<img src=examples/nlq result.png width="640" height="400"/> <br> <br>
+<img src='examples/nlq result.png' width="640" height="400"/> <br> <br>
 </div>
