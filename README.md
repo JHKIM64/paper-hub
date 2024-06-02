@@ -1,4 +1,4 @@
-# 2024-1 BKMS1 FINAL PROJECT
+# 2024-1 SNU GSDS BKMS1 FINAL PROJECT
 
 ## Abstract
 Paper-hub 
@@ -6,6 +6,7 @@ with Python, Flask, HTML, JS, Postgresql, TimescaleDB
 
 <div align="center">
 <img src=examples/dashboard.png width="640" height="400"/> <br> <br>
+<div align="center">[bkms1 - **Sangwon Lee**] FFT</div>
 </div>
 
 ## Instruction
