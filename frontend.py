@@ -3,7 +3,7 @@ from backend import create_tables, close_db_connection
 from backend.user_interaction import follow_user, unfollow_user, get_follower, add_paper
 from backend.symbolic_search import statistic_by_year, high_citation, get_followed_authors_papers_by_year, \
     search_by_author
-from backend.vector_search import find_relevant_papers, recommend_papers_by_keywords, model_select
+from backend.vector_search import find_relevant_papers, recommend_papers_by_keywords, model_select, get_embedding
 from backend.authentication import login, signup, logout
 
 app = Flask(__name__)
@@ -57,8 +57,8 @@ def signup_view():
         user_id = request.form['user_id']
         email = request.form['email']
         keywords = request.form['keywords'].split(',')
-
-        signup(cur, user_id, email, keywords)
+        keywords_vector = [get_embedding(keyword, model, tokenizer) for keyword in keywords]
+        signup(user_id, email, keywords, keywords_vector)
         return redirect(url_for('login_view'))
     return render_template('signup.html')
 
@@ -114,7 +114,7 @@ def recommend_papers_by_keywords_view():
 
 
 
-@app.route('/search_by_author', methods=['GET'])
+@app.route('/search_by_author', methods=['GET', 'POST'])
 def search_by_author_view():
     if request.method == 'POST':
         author_name = request.form['author_name']
@@ -148,7 +148,8 @@ def add_paper_view():
         venue = request.form['venue']
         year = request.form['year']
         abstract_text = request.form['abstract_text']
-        result = add_paper(conn, cur, user_id, title, venue, year, abstract_text)
+        abstract_text_vector = get_embedding(abstract_text, model, tokenizer)
+        result = add_paper(conn, cur, user_id, title, venue, year, abstract_text, abstract_text_vector)
         return render_template('result.html', result=[result])
     return render_template('add_paper.html')
 

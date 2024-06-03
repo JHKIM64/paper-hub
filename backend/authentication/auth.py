@@ -1,6 +1,6 @@
 from flask import session
 from backend.db_connection import get_db_connection, close_db_connection
-
+import numpy as np
 def login(user_id):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -15,10 +15,16 @@ def login(user_id):
     return conn, cur, exists
 
 
-def signup(cur, user_id, email, keywords):
+def signup(user_id, email, keywords, keywords_vector):
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute('INSERT INTO users (user_id, email) VALUES (%s, %s);', (user_id, email))
-    for keyword in keywords:
-        cur.execute('INSERT INTO user_keyword (user_id, keyword) VALUES (%s, %s);', (user_id, keyword.strip()))
+    for keyword, keyword_vector in zip(keywords, keywords_vector):
+        keyword_vector_str = np.array2string(keyword_vector, separator=',')
+        cur.execute('INSERT INTO user_keyword (user_id, keyword, keyword_vector) VALUES (%s, %s, %s);', (user_id, keyword.strip(), keyword_vector_str))
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 def logout(conn, cur):
