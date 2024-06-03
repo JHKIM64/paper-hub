@@ -16,8 +16,8 @@ PaperHub project is a paper-sharing site using vector db. Using the Hugging Face
 ## Powered by HuggingFace Open embedding Model
 >> https://huggingface.co/blog/mteb 
 >>  * In use : Sentence-Transformers - https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2
->>  * We tried : openai - https://openai.com/index/new-embedding-models-and-api-updates/
->>             : nvidia - https://huggingface.co/nvidia/NV-Embed-v1  "ranks No.1 now!"
+>>  * We tried : openai - https://openai.com/index/new-embedding-models-and-api-updates/   
+>> &emsp;&emsp;&emsp;&emsp; : nvidia - https://huggingface.co/nvidia/NV-Embed-v1  "ranks No.1 now!"
 
 ## Natural language Question
 <div align="center">
