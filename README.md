@@ -14,7 +14,10 @@ with Python, Flask, HTML, JS, Postgresql, TimescaleDB
 PaperHub project is a paper-sharing site using vector db. Using the Hugging Face's open-source embedding model, keywords are removed from the user's paper, embedded as a vector to be used for search, and stored in the DB. Using similarity search, it is possible not only to recommend the latest paper according to the user's interests, but also to process all natural language questions of the user.
 
 ## Powered by HuggingFace Open embedding Model
->> https://huggingface.co/blog/mteb <<
+>> https://huggingface.co/blog/mteb 
+>>  * In use : Sentence-Transformers - https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2
+>>  * We tried : openai - https://openai.com/index/new-embedding-models-and-api-updates/
+>>             : nvidia - https://huggingface.co/nvidia/NV-Embed-v1  "ranks No.1 now!"
 
 ## Natural language Question
 <div align="center">
